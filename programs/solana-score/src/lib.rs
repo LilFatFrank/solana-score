@@ -6,7 +6,12 @@ pub mod instructions;
 pub mod constants;
 
 use states::*;
-use instructions::*;
+use instructions::{
+    configure::*,
+    create_match::*,
+    participate::*,
+    distribute_prizes::*
+};
 
 declare_id!("GfkGaCZx3QZFKGEPARZWShsA33j9q4TGxTjdMWfBEtbh");
 
@@ -14,19 +19,19 @@ declare_id!("GfkGaCZx3QZFKGEPARZWShsA33j9q4TGxTjdMWfBEtbh");
 pub mod game_program {
     use super::*;
 
-    pub fn initialize_global_config(ctx: Context<configure::Configure>, config: GlobalConfig) -> Result<()> {
+    pub fn initialize_global_config(ctx: Context<Configure>, config: GlobalConfig) -> Result<()> {
         ctx.accounts.process(config)
     }
 
-    pub fn create_match_pool(ctx: Context<create_match::CreateMatchPool>, match_id: String) -> Result<()> {
-        ctx.accounts.process(match_id)
+    pub fn create_match_pool(ctx: Context<CreateMatchPool>, match_id: String) -> Result<()> {
+        ctx.accounts.process(ctx.bumps.match_pool, match_id)
     }
 
-    pub fn participate(ctx: Context<participate::Participate>, amount: u64) -> Result<()> {
+    pub fn participate(ctx: Context<Participate>, amount: u64) -> Result<()> {
         ctx.accounts.process(amount)
     }
 
-    pub fn distribute_prizes(ctx: Context<DistributePrizes>, winners: Vec<distribute_prizes::Winner>) -> Result<()> {
-        instructions::distribute_prizes::distribute_prizes(ctx, winners)
+    pub fn distribute_prizes(ctx: Context<DistributePrizes>, winner: Winner) -> Result<()> {
+        ctx.accounts.process(winner)
     }
 }

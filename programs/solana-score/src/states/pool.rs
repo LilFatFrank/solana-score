@@ -1,5 +1,6 @@
 use anchor_lang::prelude::*;
 use crate::error::GameError;
+use anchor_lang::solana_program::hash::hash;
 
 #[account]
 pub struct MatchPool {

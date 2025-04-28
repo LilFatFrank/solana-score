@@ -35,3 +35,7 @@ pub mod game_program {
         ctx.accounts.process(winner)
     }
 }
+
+
+// Withdraw from vault to authority
+// Update match pool locked status

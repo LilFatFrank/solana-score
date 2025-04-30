@@ -44,6 +44,10 @@ impl MatchPool {
         self.locked = true;
     }
 
+    pub fn unlock(&mut self) {
+        self.locked = false;
+    }
+    
     pub fn participate(&mut self, stake_amount: u64) -> Result<()> {
         require!(!self.locked, GameError::MatchPoolLocked);
         

@@ -26,4 +26,6 @@ pub enum GameError {
     InvalidWinnerAccounts,
     #[msg("Invalid winner account")]
     InvalidWinnerAccount,
+    #[msg("Numeric overflow")]
+    Overflow,
 }

@@ -10,7 +10,9 @@ use instructions::{
     configure::*,
     create_match::*,
     participate::*,
-    distribute_prizes::*
+    distribute_prizes::*,
+    withdraw::*,
+    update_status::*
 };
 
 declare_id!("GfkGaCZx3QZFKGEPARZWShsA33j9q4TGxTjdMWfBEtbh");
@@ -34,8 +36,13 @@ pub mod game_program {
     pub fn distribute_prizes(ctx: Context<DistributePrizes>, winner: Winner) -> Result<()> {
         ctx.accounts.process(winner)
     }
+
+    pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
+        ctx.accounts.process(amount)
+    }
+
+    pub fn update_match_status(ctx: Context<UpdateMatchStatus>, new_status: MatchStatus) -> Result<()> {
+        ctx.accounts.process(new_status)
+    }
 }
 
-
-// Withdraw from vault to authority
-// Update match pool locked status
